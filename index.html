@@ -1,2 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 96.8%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #6E1B2A;
+        color: #fff;
+      }
+      #map {
+        opacity: 0.7
+      }
+      .map-content {
+          -ms-flex-align: left;
+          align-items: left;
+          background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
+          box-sizing: border-box;
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          height: 100%;
+          left: 0;
+          padding: 2em 5% 5em;
+          pointer-events: none;
+          position: absolute;
+          top: 0;
+          width: 70%;
+          z-index: 1;
+      }
 
-<h1>hello shono</h1>
+      .start-header {
+        background: url('images/start_content_headline.png') 0 0 no-repeat;
+        width: 571px;
+        height: 422px;
+        padding: 0px;
+        margin: 0px;
+      }
+
+      .start-buttons {
+        background: url('images/start_buttons.png') 0 0 no-repeat;
+        width: 568px;
+        height: 286px;
+        display: block;
+        margin-top: auto;
+      }
+
+      .bottom-bar {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        height: 36px;
+        background-image: linear-gradient(-180deg, #FFFFFF 0%, #E5E5E5 100%);
+        border: 1px solid rgba(57,57,57,0.13);
+        box-shadow: 0 -3px 8px 0 rgba(0,0,0,0.10);
+        z-index: 1000;
+      }
+
+      .bottom-bar nav {
+        background: url(images/bottom_nav.png) 0 0 no-repeat;
+        position: absolute;
+        left: 10px;
+        top: 7px;
+        height: 21px;
+        width: 871px;
+      }
+
+      .bottom-bar .share {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        width: 115px;
+        height: 16px;
+        background: url('images/bottom_share.png') 0 0 no-repeat;
+      }
+
+
+    </style>
+  </head>
+  <body>
+
+  <div class="bottom-bar">
+    <nav></nav>
+    <div class="share"></div>
+  </div>
+
+  <div class="map-content">
+    <div class="map-close" ng-click="toggleInfo()"></div>
+
+
+    <div class="start-header"></div>
+    <a class="start-buttons" href="">&nbsp;</a>
+
+
+  </div>
+
+
+
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 59.3181643, lng: 18.0388207},
+          zoom: 14,
+          minZoom: 10,
+          backgroundColor: "#6E1B2A",
+          disableDefaultUI: !0,
+          gestureHandling: "greedy",
+          mapTypeId: "hybrid",
+          opacity: .1,
+          styles: [{
+              stylers: [{
+                  visibility: "off"
+              }]
+          }, {
+              featureType: "water",
+              elementType: "geometry.stroke",
+              stylers: [{
+                  color: "#ffffff"
+              }, {
+                  visibility: "on"
+              }, {
+                  weight: 1.5
+              }]
+          }]
+        });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIU1AF8_SPqLnXzalty7LZ4OcequBN7B8&callback=initMap"
+    async defer></script>
+  </body>
+  <!-- E82D26 -->
+</html>
