@@ -11,15 +11,30 @@
   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
 
   <div class="header fa-logo"></div>
-  <div class="header center-campaign-container"></div>
+  <div class="header center-campaign-container">
+    <button class="add-dot">&nbsp;</button>    
+  </div>
   <div class="header numbers"></div>
   <div id="map-header">
   </div>
 
   <!-- BOTTOM NAV -->
     <div class="bottom-bar">
-      <nav></nav>
+      <nav>
+        <a class="mapview" href="map_test_2.html">&nbsp;</a>
+        <a class="about" href="about.html">&nbsp;</a>
+      </nav>
       <div class="share"></div>
+    </div>
+
+    <div id="add-dot-container">
+      <div class="border-container">
+        <div class="border n"></div>
+        <div class="border e"></div>
+        <div class="border s"></div>
+        <div class="border w"></div>
+        <div class="exit-button"></div>
+      </div>
     </div>
 
     <!-- MAP CANVAS -->
@@ -54,6 +69,11 @@
         self.overlay.draw = function() {};
         self.overlay.setMap(map);
 
+        self.markers = [];
+        self.markerMouseoverListener;
+
+        self.addModeActive = false;
+
 
         function getRandom_marker(bounds) {
           var lat_min = bounds.getSouthWest().lat(),
@@ -67,6 +87,11 @@
 
         google.maps.event.addListener(map, 'tilesloaded', function () {
            var mapBounds = map.getBounds();
+           var markers = [];
+
+           if(self.addModeActive){
+              return false;
+           }
 
            var red_marker_icon = new google.maps.MarkerImage(
               'images/red_marker_2.png',
@@ -76,25 +101,25 @@
               new google.maps.Size( 28, 28 ) // scaled size (required for Retina display icon)
             );
 
-           for (var i = 0; i < 20; i++) {
+           for (var i = 0; i < 5; i++) {
              var marker = new google.maps.Marker({
                position: getRandom_marker(mapBounds), 
                map: map,
-               icon: red_marker_icon
+               icon: red_marker_icon,
+               animation: google.maps.Animation.DROP
              });
 
              // Handle mouseover event
-              google.maps.event.addListener(marker, 'mouseover', function() {
-  
+              self.markerMouseoverListener = google.maps.event.addListener(marker, 'mouseover', function() {
                   // Get screen xy
                   var pos = latLngPixel(this.getPosition());
-              
                   // Create an overlay
                   var overlay = createOverlay( "Här har Göran Göransson satt punkt för människohandel", pos );
-              
                   // Add it to the dom
                   $("#map").after(overlay);
               });
+
+              self.markers.push(marker);
 
            }
          });
@@ -193,7 +218,8 @@
               map: map,
               icon: icon,
               title: place.name,
-              position: place.geometry.location
+              position: place.geometry.location,
+              animation: google.maps.Animation.DROP
             }));
 
             if (place.geometry.viewport) {
@@ -207,7 +233,63 @@
         });
 
 
+        // ADD DOT FUNCTIONS
+        // ---------------------------------------------------
+
+        $(function(){
+
+          var tooltip = $('#add-dot-tooltip');
+          var mapMouseMoveListener;
+
+
+          // ENTER ADD DOT MODE
+          $(".add-dot").on("click", function(e){
+            e.preventDefault();
+            self.addModeActive = true;
+
+            $('body').addClass("add-mode-active");
+            map.setOptions({draggableCursor:'crosshair'});
+
+            for (var i = 0; i < self.markers.length; i++) {
+              self.markers[i].setMap(null);
+            }
+
+            tooltip.show();
+            mapMouseMoveListener = google.maps.event.addListener(map, 'mousemove', function (e) {
+              for (var i=tooltip.length; i--;) {
+                    tooltip.css("left", e.pixel.x + 25 + 'px');
+                    tooltip.css("top", e.pixel.y + 'px');
+                }
+              });
+
+
+          });
+
+          // EXIT ADD DOT MODE
+          $('#add-dot-container .exit-button').on("click", function(e){
+            e.preventDefault();
+            self.addModeActive = false;
+
+            for (var i = 0; i < self.markers.length; i++) {
+              self.markers[i].setMap(map);
+            }
+            
+            tooltip.hide();
+            google.maps.event.clearInstanceListeners(map, 'mousemove');
+
+            $('body').removeClass("add-mode-active");
+            map.setOptions({draggableCursor:'url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur"), default'});
+
+
+
+          });
+
+        });
+
+
       }
+
+
 
     </script>
 
@@ -219,6 +301,8 @@
       </span>
     </span>
   </a>
+
+  <div id="add-dot-tooltip">Klicka för att sätta punkt</div>
 
   </body>
 </html>

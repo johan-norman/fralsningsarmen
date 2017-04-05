@@ -1,7 +1,12 @@
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map, #startpage-map {
-        height: 95%;
+        /*height: 100%;*/
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 36px;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -43,6 +48,16 @@
         height: 422px;
         padding: 0px;
         margin: 0px;
+        position: relative;
+      }
+
+      .start-header a {
+        position: absolute;
+        width: 150px;
+        height: 50px;
+        background: transparent;
+        bottom: 30px;
+        pointer-events: auto;
       }
 
       .start-buttons {
@@ -72,6 +87,24 @@
         top: 7px;
         height: 21px;
         width: 871px;
+      }
+
+      .bottom-bar nav .about {
+        display: inline-block;
+        height: 36px;
+        width: 120px;
+        /*border: 1px solid red;*/
+        position: absolute;
+        left: 320px;
+      }
+
+      .bottom-bar nav .mapview {
+        display: inline-block;
+        height: 36px;
+        width: 80px;
+        /*border: 1px solid red;*/
+        position: absolute;
+        left: 120px;
       }
 
       .bottom-bar .share {
@@ -344,6 +377,19 @@
   background: url("../images/campaign-logo-buttons.png") 0 0 no-repeat;
 }
 
+.center-campaign-container .add-dot {
+  display: inline-block;
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  bottom: 20px;
+  right: 25px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+}
+
 .numbers {
   right: 20px;
   top: 20px;
@@ -359,4 +405,150 @@
   top: 501px !important;
   left: 100px !important;
 }
+
+/*---------------------------------*/
+
+html.about-page,
+html.about-page body {
+  background: transparent url("../images/about/bg_texture.png") 0 0 repeat;
+}
+
+.left-nav-bar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+
+}
+
+.left-nav-bar:after {
+  position: absolute;
+  right: 0;
+  content: '';
+  background: url("../images/about/leftnav-border.png") 0 0 no-repeat;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+}
+
+.left-nav-bar .back {
+  width: 32px;
+  height: 123px;
+  background: url("../images/about/back-link.png") 0 0 no-repeat;
+  display: inline-block;
+  color: transparent;
+  padding: 0px;
+  margin: 0;
+  position: relative;
+  top: 10px;
+  left: 10px;
+}
+
+.left-nav-bar .share-icons {
+  width: 18px;
+  height: 102px;
+  background: url("../images/about/share-icons.png") 0 0 no-repeat;
+  display: inline-block;
+  color: transparent;
+  padding: 0px;
+  margin: 0;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+#about-content {
+  width: 1204px;
+  margin: 0 auto;
+  height: 6800px;
+  background: url("../images/about/about-content.png") 0 50px no-repeat;
+}
+
+/* --------------------------------------------- */
+/* ADD DOT STYLES */
+/* --------------------------------------------- */
+
+.add-mode-active {
+  cursor: crosshair;
+}
+
+#add-dot-container {
+  display: none;
+}
+
+.add-mode-active #add-dot-container {
+  display: block;
+}
+
+.add-mode-active .center-campaign-container {
+  margin-left: -130px;
+  width: 261px;
+  height: 238px;
+  background: url("../images/campaign-logo-buttons_2.png") 0 0 no-repeat;
+}
+
+.border {
+  position: fixed;
+  background-color: #E53531;
+  z-index: 7000;
+}
+
+.border.n {
+  top: 0;
+  width: 100%;
+  height: 8px;
+}
+
+.border.e {
+  right: 0;
+  height: 100%;
+  width: 8px;
+  bottom: 36px;
+}
+
+.border.s {
+  bottom: 36px;
+  width: 100%;
+  height: 8px;
+  left: 0;
+  right: 0;
+}
+
+.border.w {
+  left: 0;
+  height: 100%;
+  width: 8px;
+  bottom: 36px;
+}
+
+.exit-button {
+  position: fixed;
+  width: 147px;
+  height: 32px;
+  background: url("../images/exit-button.png") 0 0 no-repeat;
+  bottom: 36px;
+  left: 50%;
+  margin-left: -73px;
+  z-index: 7000;
+  cursor: pointer;
+}
+
+#add-dot-tooltip {
+  position: absolute;
+  padding: 2px 5px;
+  /* Rectangle 6: */
+  opacity: 0.61;
+  background: #FFFFFF;
+  border-radius: 4px;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  z-index: 8000;
+  display: none;
+}
+
+
 
