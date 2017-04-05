@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="csstransitions">
+  <head>
+    <title>Sätt punkt</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body>
+
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+
+  <div class="header fa-logo"></div>
+  <div class="header center-campaign-container"></div>
+  <div class="header numbers"></div>
+  <div id="map-header">
+  </div>
+
+  <!-- BOTTOM NAV -->
+    <div class="bottom-bar">
+      <nav></nav>
+      <div class="share"></div>
+    </div>
+
+    <!-- MAP CANVAS -->
+    <div id="map"></div>
+
+
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIU1AF8_SPqLnXzalty7LZ4OcequBN7B8&libraries=places&callback=initMap"
+    async defer></script>
+
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/messagebubble.js"></script>
+    <script>
+
+    var map;
+      function initMap() {
+
+        // Standard map
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 63.576677, lng: 15.996094},
+          zoom: 5,
+          backgroundColor: "#6E1B2A",
+          disableDefaultUI: !0,
+          gestureHandling: "greedy",
+          mapTypeId: "hybrid",
+          opacity: .1,
+          styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":70}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}]
+        });
+
+        self.overlay = new google.maps.OverlayView();
+        self.overlay.draw = function() {};
+        self.overlay.setMap(map);
+
+
+        function getRandom_marker(bounds) {
+          var lat_min = bounds.getSouthWest().lat(),
+              lat_range = bounds.getNorthEast().lat() - lat_min,
+              lng_min = bounds.getSouthWest().lng(),
+              lng_range = bounds.getNorthEast().lng() - lng_min;
+
+          return new google.maps.LatLng(lat_min + (Math.random() * lat_range), 
+                                        lng_min + (Math.random() * lng_range));
+        }
+
+        google.maps.event.addListener(map, 'tilesloaded', function () {
+           var mapBounds = map.getBounds();
+
+           var red_marker_icon = new google.maps.MarkerImage(
+              'images/red_marker_2.png',
+              null, // size
+              null, // origin
+              new google.maps.Point( 10, 10 ), // anchor (move to center of marker)
+              new google.maps.Size( 28, 28 ) // scaled size (required for Retina display icon)
+            );
+
+           for (var i = 0; i < 20; i++) {
+             var marker = new google.maps.Marker({
+               position: getRandom_marker(mapBounds), 
+               map: map,
+               icon: red_marker_icon
+             });
+
+             // Handle mouseover event
+              google.maps.event.addListener(marker, 'mouseover', function() {
+  
+                  // Get screen xy
+                  var pos = latLngPixel(this.getPosition());
+              
+                  // Create an overlay
+                  var overlay = createOverlay( "Här har Göran Göransson satt punkt för människohandel", pos );
+              
+                  // Add it to the dom
+                  $("#map").after(overlay);
+              });
+
+           }
+         });
+
+    var createOverlay = function(message, position) {
+      
+      var overlay = $("#messageTemplate").clone();
+      
+      //overlay.attr("id", message.id);
+      //overlay.attr("href", "/messages/"+ message.id +"")
+      
+      // Position it at the marker
+      overlay.css({
+        left: position.x - 52,
+        top: position.y - 52,
+      });
+      
+      // Use distance from center to decide when to hide
+      var radius = 50;
+      var radiusSq = radius * radius;
+      
+      var checkDistance = function(event) {
+        var dx = event.pageX - position.x;
+        var dy = event.pageY - position.y;
+        
+        if( dx*dx + dy*dy > radiusSq ) {
+          
+          $(window).unbind("mousemove", checkDistance);
+          overlay.data("MessageBubble").disappear(250);
+          setTimeout(function() {
+            overlay.remove();
+          }, 250);
+        }
+      }
+      
+      $(window).bind("mousemove", checkDistance);
+      
+      // Make it a message bubble
+      overlay.messageBubble();
+      
+      overlay.data("MessageBubble").disappear(0);
+      setTimeout(function(){overlay.data("MessageBubble").appear(250);}, 20);
+      
+      return overlay;
+    }
+
+        var latLngPixel = function(latLng) {
+            var projection = self.overlay.getProjection();
+            return projection.fromLatLngToContainerPixel(latLng);
+        }
+
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+
+
+      }
+
+    </script>
+
+    <a href="#" class="message smallMessage enabled" id="messageTemplate" style="left:-99999px;">
+    <span class="dot"></span>
+    <span class="wrap">
+      <span class="text">
+        <p class="textmsg">Här har Göran Göransson satt punkt för människohandel</p>
+      </span>
+    </span>
+  </a>
+
+  </body>
+</html>

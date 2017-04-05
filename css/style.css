@@ -1,0 +1,361 @@
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map, #startpage-map {
+        height: 95%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #6E1B2A;
+        color: #fff;
+      }
+      #startpage-map {
+        opacity: 0.7
+      }
+      #map {
+        opacity: 0.8
+      }
+
+      .map-content {
+          -ms-flex-align: left;
+          align-items: left;
+          background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
+          box-sizing: border-box;
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          height: 100%;
+          left: 0;
+          padding: 2em 5% 2em;
+          pointer-events: none;
+          position: absolute;
+          top: 0;
+          width: 70%;
+          z-index: 1;
+      }
+
+      .start-header {
+        background: url('../images/start_content_headline.png') 0 0 no-repeat;
+        width: 571px;
+        height: 422px;
+        padding: 0px;
+        margin: 0px;
+      }
+
+      .start-buttons {
+        background: url('../images/start_buttons.png') 0 0 no-repeat;
+        width: 568px;
+        height: 286px;
+        display: block;
+        margin-top: auto;
+        pointer-events: auto;
+      }
+
+      .bottom-bar {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        height: 36px;
+        background-image: linear-gradient(-180deg, #FFFFFF 0%, #E5E5E5 100%);
+        border: 1px solid rgba(57,57,57,0.13);
+        box-shadow: 0 -3px 8px 0 rgba(0,0,0,0.10);
+        z-index: 1000;
+      }
+
+      .bottom-bar nav {
+        background: url(../images/bottom_nav.png) 0 0 no-repeat;
+        position: absolute;
+        left: 10px;
+        top: 7px;
+        height: 21px;
+        width: 871px;
+      }
+
+      .bottom-bar .share {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        width: 115px;
+        height: 16px;
+        background: url('../images/bottom_share.png') 0 0 no-repeat;
+      }
+
+
+      /* your custom CSS \*/
+  @-moz-keyframes pulsate {
+    from {
+      -moz-transform: scale(0.25);
+      opacity: 1.0;
+    }
+    95% {
+      -moz-transform: scale(1.3);
+      opacity: 0;
+    }
+    to {
+      -moz-transform: scale(0.3);
+      opacity: 0;
+    }
+  }
+  @-webkit-keyframes pulsate {
+    from {
+      -webkit-transform: scale(0.25);
+      opacity: 1.0;
+    }
+    95% {
+      -webkit-transform: scale(1.3);
+      opacity: 0;
+    }
+    to {
+      -webkit-transform: scale(0.3);
+      opacity: 0;
+    }
+  }
+  /* get the container that's just outside the marker image, 
+    which just happens to have our Marker title in it */
+  div.gmnoprint[title="pulsate"] {
+    -moz-animation: pulsate 1.5s ease-in-out infinite;
+    -webkit-animation: pulsate 1.5s ease-in-out infinite;
+    border:1pt solid #fff;
+    /* make a circle */
+    -moz-border-radius:51px;
+    -webkit-border-radius:51px;
+    border-radius:51px;
+    /* multiply the shadows, inside and outside the circle */
+    -moz-box-shadow:inset 0 0 5px #fff, inset 0 0 5px #fff, inset 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff;
+    -webkit-box-shadow:inset 0 0 5px #fff, inset 0 0 5px #fff, inset 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff;
+    box-shadow:inset 0 0 5px #fff, inset 0 0 5px #fff, inset 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff;
+    /* set the ring's new dimension and re-center it */
+      height: 61px!important;
+    margin: -17px 0 0 -17px;
+    width: 61px!important;
+
+  }
+
+    /* hide the superfluous marker image since it would expand and shrink with its containing element */
+    /*  #map_canvas div[style*="987654"][title] img {*/
+      #map div.gmnoprint[title="pulsate"] img {
+        display:none !important;
+      }
+
+
+      .overlay {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, .6);
+        z-index: 5000
+      }
+
+      .tooltip-1{
+        background: url("../images/tooltip_1_bg.png") 0 0 no-repeat;
+        width: 436px;
+        height: 686px;
+        position: absolute;
+        z-index: 5001;
+      }
+
+      .tooltip-2{
+        background: url("../images/tooltip_2_bg.png") 0 0 no-repeat;
+        width: 436px;
+        height: 686px;
+        position: absolute;
+        z-index: 5001;
+      }
+
+      .tooltip-3{
+        background: url("../images/tooltip_1_bg.png") 0 0 no-repeat;
+        width: 436px;
+        height: 686px;
+        position: absolute;
+        z-index: 5001;
+      }
+
+      .tooltip-4{
+        background: url("../images/tooltip_2_bg.png") 0 0 no-repeat;
+        width: 436px;
+        height: 686px;
+        position: absolute;
+        z-index: 5001;
+      }
+
+      .fake-marker {
+        position: absolute;
+        z-index: 5001;
+        background: url("../images/red_marker.png") 0 0 no-repeat;
+      }
+
+/* ------------------------------ */
+/* GENERAL */
+
+.message {
+  text-align: center;
+  position: absolute;
+  color: #fff;
+}
+
+.message:hover {
+  z-index: 9999;
+}
+
+.message .dot {
+  background-position: center top;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  display: block;
+  -webkit-transform: translate3d(0,0,0);
+}
+
+.message .wrap {
+  position: absolute;
+  display: table;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.message .text {
+  margin: 0 auto;
+  display: table-cell;
+  vertical-align: middle;
+  horizontal-align: center;
+}
+
+.message p {
+  display: block;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+/* MESSAGE SIZES */
+
+/* SMALL */
+
+.smallMessage,
+.smallMessage .dot,
+.smallMessage .wrap,
+.smallMessage.enabled:hover .dot {
+  height: 104px;
+  width: 104px;
+  font-family: sans-serif;
+  font-size: 13px;
+  text-align: center;
+}
+
+/*.smallMessage .dot {
+  background-image: url("../images/small-dot-bg.png");
+  -webkit-backface-visibility: hidden;
+}*/
+
+.smallMessage.enabled:hover .dot {
+  margin: -15px 0 0 -15px;
+  height: 116px;
+  width: 116px;
+}
+
+.smallMessage.enabled:hover .wrap {
+  top: -20px;
+}
+
+.smallMessage .text {
+  padding: 18px;
+  width: 100%;
+}
+
+.smallMessage .dot {
+  background-color: #E53531;
+  
+  border-radius: 200px;
+}
+
+.smallMessage.enabled:hover .dot {
+  background-color: #E53531;
+}
+
+/* BORDER RADIUS & 2D TRANSFORM OVERRIDES */
+
+.message .dot,
+.message .wrap,
+.message .textmsg {
+  -webkit-transition: all 250ms ease-in-out;
+  -moz-transition: all 250ms ease-in-out;
+  -o-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
+}
+
+.message .dot {
+  background-image: none;
+  /*border: 1px solid #fff;*/
+  
+  -webkit-transform: scale(1.0);
+  -moz-transform: scale(1.0);
+  -ms-transform: scale(1.0);
+  -o-transform: scale(1.0);
+  transform: scale(1.0);
+}
+
+.message.enabled:hover .dot {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.3);
+  margin: 0;
+}
+
+
+#map-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 203px;
+  width: 100%;
+  z-index: 5005;
+
+  opacity: 0.65;
+  background-image: linear-gradient(-180deg, #2B2B2B 46%, rgba(43,43,43,0.00) 100%);
+
+}
+
+.header {
+  position: absolute;
+  z-index: 6010;
+}
+
+.fa-logo {
+  left: 42px;
+  top: 26px;
+  width: 91px;
+  height: 107px;
+  background: url("../images/fa-logotyp.png") 0 0 no-repeat;
+}
+
+.center-campaign-container {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  margin-left: -130px;
+  width: 261px;
+  height: 238px;
+  background: url("../images/campaign-logo-buttons.png") 0 0 no-repeat;
+}
+
+.numbers {
+  right: 20px;
+  top: 20px;
+  width: 201px;
+  height: 97px;
+  background: url("../images/right-side-numbers.png") 0 0 no-repeat;
+}
+
+#pac-input {
+  position: absolute;
+  z-index: 10000;
+  top: 501px !important;
+  left: 100px !important;
+}
+
