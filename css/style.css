@@ -318,7 +318,7 @@
 
   opacity: 0.65;
   background-image: linear-gradient(-180deg, #2B2B2B 46%, rgba(43,43,43,0.00) 100%);
-
+  pointer-events: none;
 }
 
 .header {
@@ -350,6 +350,7 @@
   width: 201px;
   height: 97px;
   background: url("../images/right-side-numbers.png") 0 0 no-repeat;
+  pointer-events: none;
 }
 
 #pac-input {
