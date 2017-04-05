@@ -1,117 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Punkt</title>
+    <title>Sätt punkt</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 96.8%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background-color: #6E1B2A;
-        color: #fff;
-      }
-      #map {
-        opacity: 0.7
-      }
-      .map-content {
-          -ms-flex-align: left;
-          align-items: left;
-          background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
-          box-sizing: border-box;
-          display: -ms-flexbox;
-          display: flex;
-          -ms-flex-direction: column;
-          flex-direction: column;
-          height: 100%;
-          left: 0;
-          padding: 2em 5% 5em;
-          pointer-events: none;
-          position: absolute;
-          top: 0;
-          width: 70%;
-          z-index: 1;
-      }
-
-      .start-header {
-        background: url('/images/start_content_headline.png') 0 0 no-repeat;
-        width: 571px;
-        height: 422px;
-        padding: 0px;
-        margin: 0px;
-      }
-
-      .start-buttons {
-        background: url('/images/start_buttons.png') 0 0 no-repeat;
-        width: 568px;
-        height: 286px;
-        display: block;
-        margin-top: auto;
-      }
-
-      .bottom-bar {
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-        height: 36px;
-        background-image: linear-gradient(-180deg, #FFFFFF 0%, #E5E5E5 100%);
-        border: 1px solid rgba(57,57,57,0.13);
-        box-shadow: 0 -3px 8px 0 rgba(0,0,0,0.10);
-        z-index: 1000;
-      }
-
-      .bottom-bar nav {
-        background: url(/images/bottom_nav.png) 0 0 no-repeat;
-        position: absolute;
-        left: 10px;
-        top: 7px;
-        height: 21px;
-        width: 871px;
-      }
-
-      .bottom-bar .share {
-        position: absolute;
-        right: 20px;
-        top: 10px;
-        width: 115px;
-        height: 16px;
-        background: url('/images/bottom_share.png') 0 0 no-repeat;
-      }
-
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
   </head>
   <body>
 
-  <div class="bottom-bar">
-    <nav></nav>
-    <div class="share"></div>
-  </div>
+  <!-- BOTTOM NAV -->
+    <div class="bottom-bar">
+      <nav></nav>
+      <div class="share"></div>
+    </div>
 
-  <div class="map-content">
-    <div class="map-close" ng-click="toggleInfo()"></div>
+    <!-- STARTPAGE CONTENT -->
+    <div class="map-content">
+      <div class="map-close"></div>
+      <div class="start-header"></div>
+      <a class="start-buttons" href="map_test_2.html">&nbsp;</a>
+    </div>
+
+    <!-- MAP CANVAS -->
+    <div id="startpage-map"></div>
 
 
-    <div class="start-header"></div>
-    <a class="start-buttons" href="">&nbsp;</a>
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIU1AF8_SPqLnXzalty7LZ4OcequBN7B8&callback=initMap"
+    async defer></script>
 
-
-  </div>
-
-
-
-    <div id="map"></div>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/messagebubble.js"></script>
     <script>
-      var map;
+
+    var startpageMap;
+    var map;
       function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
+
+        // Startpage map
+        startpageMap = new google.maps.Map(document.getElementById('startpage-map'), {
           center: {lat: 59.3181643, lng: 18.0388207},
           zoom: 14,
           minZoom: 10,
@@ -136,11 +64,114 @@
               }]
           }]
         });
+
+        var image = new google.maps.MarkerImage(
+              'images/red_marker.png',
+              null, // size
+              null, // origin
+              new google.maps.Point( 15, 15 ), // anchor (move to center of marker)
+              new google.maps.Size( 30, 30 ) // scaled size (required for Retina display icon)
+            );
+
+        // Startpage markers
+        var marker_1 = new google.maps.Marker({
+          position: {lat: 59.3281654, lng: 18.0488307},
+          map: startpageMap,
+          icon: image,
+          optimized: false,
+          title: "pulsate",
+          flat: true
+        });
+
+
+        var marker_2 = new google.maps.Marker({
+          position: {lat: 59.3210959, lng: 18.0599307},
+          map: startpageMap,
+          icon: image,
+          optimized: false,
+          title: "pulsate",
+          flat: true
+        });
+
+        var marker_3 = new google.maps.Marker({
+          position: {lat: 59.3110959, lng: 18.0799307},
+          map: startpageMap,
+          icon: image,
+          optimized: false,
+          title: "pulsate",
+          flat: true
+        });
+
+        var marker_4 = new google.maps.Marker({
+          position: {lat: 59.3110959, lng: 18.0499307},
+          map: startpageMap,
+          icon: image,
+          optimized: false,
+          title: "pulsate",
+          flat: true
+        });
+
+        marker_1.addListener('click', function() {
+          addOverlay("tooltip-1", this, this.position);
+        });
+
+        marker_2.addListener('click', function() {
+          addOverlay("tooltip-2", this, this.position);
+        });
+
+        marker_3.addListener('click', function() {
+          addOverlay("tooltip-3", this, this.position);
+        });
+
+        marker_4.addListener('click', function() {
+          addOverlay("tooltip-4", this, this.position);
+        });
+
+
+        var addOverlay = function(a, b, pos){
+
+          
+          var $div = $('<div />').prependTo('body').delay(1000).addClass('show');
+              $div.attr('class', 'overlay');
+
+          var $tooltip = $('<div />').prependTo('body');
+              $tooltip.attr('class', a);
+
+          var $fakeMarker = $('<div />').prependTo('body');
+              $fakeMarker.attr('class', 'gmnoprint fake-marker');
+              $fakeMarker.attr('title', 'pulsate');
+
+              var scale = Math.pow(2, startpageMap.getZoom());
+              var nw = new google.maps.LatLng(
+                  startpageMap.getBounds().getNorthEast().lat(),
+                  startpageMap.getBounds().getSouthWest().lng()
+              );
+              var worldCoordinateNW = startpageMap.getProjection().fromLatLngToPoint(nw);
+              var worldCoordinate = startpageMap.getProjection().fromLatLngToPoint(b.getPosition());
+              var pixelOffset = new google.maps.Point(
+                  Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale),
+                  Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale)
+              );
+
+              $tooltip.css('left', pixelOffset.x - 450 );
+              $tooltip.css('top', pixelOffset.y - 160);
+
+              $fakeMarker.css('left', pixelOffset.x);
+              $fakeMarker.css('top', pixelOffset.y);
+
+              
+
+              $div.on("click", function(){
+                $tooltip.remove();
+                $fakeMarker.remove();
+                $div.remove();
+              });
+        }
+
+
       }
 
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIU1AF8_SPqLnXzalty7LZ4OcequBN7B8&callback=initMap"
-    async defer></script>
+
   </body>
-  <!-- E82D26 -->
 </html>
