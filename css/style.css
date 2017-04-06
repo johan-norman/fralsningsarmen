@@ -23,6 +23,10 @@
         opacity: 0.8
       }
 
+      .our-missions #startpage-map {
+        opacity: 1 !important;
+      }
+
       .map-content {
           -ms-flex-align: left;
           align-items: left;
@@ -42,6 +46,12 @@
           z-index: 1;
       }
 
+      .our-missions .map-content {
+        background: linear-gradient(to right, rgba(255, 255, 255, 0.65), transparent) !important;
+
+        padding: 2em 5% 5em;
+      }
+
       .start-header {
         background: url('../images/start_content_headline.png') 0 0 no-repeat;
         width: 571px;
@@ -49,6 +59,12 @@
         padding: 0px;
         margin: 0px;
         position: relative;
+      }
+
+      .our-missions .start-header {
+        background: url('../images/insatser/insatser_headline.png') 0 0 no-repeat;
+        width: 538px;
+        height: 350px;
       }
 
       .start-header a {
@@ -67,6 +83,12 @@
         display: block;
         margin-top: auto;
         pointer-events: auto;
+      }
+
+      .our-missions .start-buttons {
+        background: url('../images/insatser/insatser_linkList.png') 0 0 no-repeat;
+        width: 568px;
+        height: 286px;
       }
 
       .bottom-bar {
@@ -105,6 +127,15 @@
         /*border: 1px solid red;*/
         position: absolute;
         left: 120px;
+      }
+
+      .bottom-bar nav .missions {
+        display: inline-block;
+        height: 36px;
+        width: 100px;
+        /*border: 1px solid red;*/
+        position: absolute;
+        left: 210px;
       }
 
       .bottom-bar .share {

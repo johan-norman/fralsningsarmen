@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sätt punkt</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body class="our-missions">
+
+    <!-- BOTTOM NAV -->
+    <div class="bottom-bar">
+      <nav>
+        <a class="mapview" href="map_test_2.html">&nbsp;</a>
+        <a class="missions" href="map_test_light.html">&nbsp;</a>
+        <a class="about" href="about.html">&nbsp;</a>
+      </nav>
+      <div class="share"></div>
+    </div>
+
+    <!-- STARTPAGE CONTENT -->
+    <div class="map-content">
+      <div class="map-close""></div>
+      <div class="start-header">
+      </div>
+      <a class="start-buttons" href="map_test_2.html">&nbsp;</a>
+    </div>
+
+    <!-- MAP CANVAS -->
+    <div id="startpage-map"></div>
+
+
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIU1AF8_SPqLnXzalty7LZ4OcequBN7B8&callback=initMap"
+    async defer></script>
+
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/messagebubble.js"></script>
+    <script>
+
+    var startpageMap;
+    var map;
+      function initMap() {
+
+        // Startpage map
+        startpageMap = new google.maps.Map(document.getElementById('startpage-map'), {
+          center: {lat: 62.971044, lng: 10.964355},
+          zoom: 5,
+          minZoom: 5,
+          backgroundColor: "#FFFFFF",
+          disableDefaultUI: !0,
+          gestureHandling: "greedy",
+          mapTypeId: "roadmap",
+          styles: [
+    {
+        "featureType": "administrative.locality",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#2c2e33"
+            },
+            {
+                "saturation": 7
+            },
+            {
+                "lightness": 19
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#bbc0c4"
+            },
+            {
+                "saturation": -93
+            },
+            {
+                "lightness": 31
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "hue": "#bbc0c4"
+            },
+            {
+                "saturation": -93
+            },
+            {
+                "lightness": 31
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "hue": "#bbc0c4"
+            },
+            {
+                "saturation": -93
+            },
+            {
+                "lightness": -2
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#e9ebed"
+            },
+            {
+                "saturation": -90
+            },
+            {
+                "lightness": -8
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#e9ebed"
+            },
+            {
+                "saturation": 10
+            },
+            {
+                "lightness": 69
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#e9ebed"
+            },
+            {
+                "saturation": -78
+            },
+            {
+                "lightness": 67
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    }
+]
+        });
+
+        var image = new google.maps.MarkerImage(
+              'images/red_marker.png',
+              null, // size
+              null, // origin
+              new google.maps.Point( 15, 15 ), // anchor (move to center of marker)
+              new google.maps.Size( 30, 30 ) // scaled size (required for Retina display icon)
+            );
+
+        // Startpage markers
+        var marker_1 = new google.maps.Marker({
+          position: {lat: 59.3281654, lng: 18.0488307},
+          map: startpageMap,
+          icon: image,
+          optimized: false,
+          flat: true
+        });
+
+
+        var marker_2 = new google.maps.Marker({
+          position: {lat: 58.3210959, lng: 16.0599307},
+          map: startpageMap,
+          icon: image,
+          optimized: false,
+          flat: true
+        });
+
+        var marker_3 = new google.maps.Marker({
+          position: {lat: 62.3110959, lng: 15.0799307},
+          map: startpageMap,
+          icon: image,
+          optimized: false,
+          flat: true
+        });
+
+        var marker_4 = new google.maps.Marker({
+          position: {lat: 64.3110959, lng: 18.0499307},
+          map: startpageMap,
+          icon: image,
+          optimized: false,
+          flat: true
+        });
+
+        // marker_1.addListener('click', function() {
+        //   addOverlay("tooltip-1", this, this.position);
+        // });
+
+        // marker_2.addListener('click', function() {
+        //   addOverlay("tooltip-2", this, this.position);
+        // });
+
+        // marker_3.addListener('click', function() {
+        //   addOverlay("tooltip-3", this, this.position);
+        // });
+
+        // marker_4.addListener('click', function() {
+        //   addOverlay("tooltip-4", this, this.position);
+        // });
+
+
+        var addOverlay = function(a, b, pos){
+
+          
+          var $div = $('<div />').prependTo('body').delay(1000).addClass('show');
+              $div.attr('class', 'overlay');
+
+          var $tooltip = $('<div />').prependTo('body');
+              $tooltip.attr('class', a);
+
+              var scale = Math.pow(2, startpageMap.getZoom());
+              var nw = new google.maps.LatLng(
+                  startpageMap.getBounds().getNorthEast().lat(),
+                  startpageMap.getBounds().getSouthWest().lng()
+              );
+              var worldCoordinateNW = startpageMap.getProjection().fromLatLngToPoint(nw);
+              var worldCoordinate = startpageMap.getProjection().fromLatLngToPoint(b.getPosition());
+              var pixelOffset = new google.maps.Point(
+                  Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale),
+                  Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale)
+              );
+
+              $tooltip.css('left', pixelOffset.x - 450 );
+              $tooltip.css('top', pixelOffset.y - 160);
+
+              $div.on("click", function(){
+                $tooltip.remove();
+                $div.remove();
+              });
+        }
+
+
+      }
+
+    </script>
+
+  </body>
+</html>
